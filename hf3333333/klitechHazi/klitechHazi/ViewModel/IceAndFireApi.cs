@@ -31,7 +31,7 @@ namespace klitechHazi
         }
 
         //Keresesnel vegul ezt hasznalom
-        public async Task<Character> GetCharacterAsync(string characterName)
+        public async Task<Character> GetCharacterAsync2(string characterName)
         {
             string url = $"{BaseUrl}characters?name={characterName}"; // Az adott karakter URL-je
 
@@ -45,6 +45,26 @@ namespace klitechHazi
                 if (characters != null && characters.Count > 0)
                 {
                     return characters[0];
+                }
+            }
+
+            throw new Exception("Karakter nem található."); // Kivétel dobása, ha nem található karakter
+        }
+
+        public async Task<Character> GetCharacterAsync(string characterName)
+        {
+            string url = characterName; // Az adott karakter URL-je
+
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                Character character = JsonConvert.DeserializeObject<Character>(json);
+
+                if (character != null)
+                {
+                    return character;
                 }
             }
 
