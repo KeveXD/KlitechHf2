@@ -57,12 +57,13 @@ namespace klitechHazi.ViewModel
             if (!housesLoaded)
             {
                 IceAndFireApi api = new IceAndFireApi();
-                ObservableCollection<House> houses = await api.GetHousesAsync();
-                if (houses != null)
+                ObservableCollection<string> houseNames = await api.GetHouseNamesAsync();
+                if (houseNames != null)
                 {
                     Houses.Clear();
-                    foreach (var house in houses)
+                    foreach (var houseName in houseNames)
                     {
+                        House house = new House { Name = houseName };
                         Houses.Add(house);
                     }
                     housesLoaded = true;
@@ -164,5 +165,8 @@ namespace klitechHazi.ViewModel
                 // Kezelés az adott visszajelzésnek vagy üzenetnek a felhasználónak, ha nem találtunk karaktereket.
             }
         }
+
+
+
     }
 }

@@ -189,10 +189,10 @@ namespace klitechHazi
 
 
         //a Hazak api lekereset valositja meg
-        public async Task<ObservableCollection<House>> GetHousesAsync()
+        public async Task<ObservableCollection<string>> GetHouseNamesAsync()
         {
             string url = $"{BaseUrl}houses?pageSize=50";
-            List<string> houseUris = new List<string>();
+            List<string> houseNames = new List<string>();
 
             while (!string.IsNullOrEmpty(url))
             {
@@ -205,10 +205,10 @@ namespace klitechHazi
 
                     if (houses != null)
                     {
-                        List<string> houseUrisOnPage = houses.Select(h => h.Url).ToList();
-                        houseUris.AddRange(houseUrisOnPage);
+                        List<string> namesOnPage = houses.Select(h => h.Name).ToList();
+                        houseNames.AddRange(namesOnPage);
 
-                        // Check if there is another page in the results
+                        // Ellenőrizzük, hogy van-e további oldal az eredményekben
                         IEnumerable<string> linkHeaders = response.Headers.GetValues("Link");
                         url = GetNextPageUrlFromLinkHeaders(linkHeaders);
                     }
@@ -223,23 +223,12 @@ namespace klitechHazi
                 }
             }
 
-            if (houseUris.Count > 0)
+            if (houseNames.Any())
             {
-                ObservableCollection<House> houses = new ObservableCollection<House>();
-                foreach (string houseUri in houseUris)
-                {
-                    HttpResponseMessage houseResponse = await _httpClient.GetAsync(houseUri);
-                    if (houseResponse.IsSuccessStatusCode)
-                    {
-                        string houseJson = await houseResponse.Content.ReadAsStringAsync();
-                        House house = JsonConvert.DeserializeObject<House>(houseJson);
-                        houses.Add(house);
-                    }
-                }
-                return houses;
+                return new ObservableCollection<string>(houseNames);
             }
 
-            throw new Exception("Failed to retrieve houses.");
+            throw new Exception("Nem sikerült lekérni a házakat.");
         }
 
         //Itt egy karaktert van az ObservableCollection-ben a visszateresnel
