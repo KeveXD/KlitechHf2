@@ -31,6 +31,7 @@ namespace klitechHazi.ViewModel
             this.frame = frame;
         }
 
+        // Könyvek betöltése aszinkron módon
         public async Task LoadBooksAsync()
         {
             if (!booksLoaded)
@@ -50,6 +51,7 @@ namespace klitechHazi.ViewModel
             }
         }
 
+        // Házak betöltése aszinkron módon
         public async Task LoadHousesAsync()
         {
             if (!housesLoaded)
@@ -68,6 +70,7 @@ namespace klitechHazi.ViewModel
             }
         }
 
+        // Karakterek betöltése aszinkron módon
         public async Task LoadCharactersAsync()
         {
             if (!charactersLoaded)
@@ -86,6 +89,7 @@ namespace klitechHazi.ViewModel
             }
         }
 
+        // Adatok megjelenítése aszinkron módon
         public async Task DisplayDataAsync()
         {
             await LoadBooksAsync();
@@ -93,6 +97,7 @@ namespace klitechHazi.ViewModel
             await LoadCharactersAsync();
         }
 
+        // Keresési kifejezés betöltése aszinkron módon
         public async Task<string> LoadSearchTermAsync()
         {
             try
@@ -107,6 +112,7 @@ namespace klitechHazi.ViewModel
             }
         }
 
+        // Keresési kifejezés mentése aszinkron módon
         public async Task SaveSearchTermAsync(string searchTerm)
         {
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
@@ -114,8 +120,7 @@ namespace klitechHazi.ViewModel
             await FileIO.WriteTextAsync(file, searchTerm);
         }
 
-        
-
+        // Keresési kifejezés inicializálása aszinkron módon
         public async Task InitializeSearchTermAsync()
         {
             string searchTerm = await GetSavedSearchTermAsync();
@@ -125,6 +130,7 @@ namespace klitechHazi.ViewModel
             }
         }
 
+        // Elmentett keresési kifejezés lekérése aszinkron módon
         public async Task<string> GetSavedSearchTermAsync()
         {
             try
@@ -139,7 +145,7 @@ namespace klitechHazi.ViewModel
             }
         }
 
-
+        // Keresés végrehajtása aszinkron módon
         public async Task PerformSearch(string searchTerm)
         {
             IceAndFireApi api = new IceAndFireApi();
@@ -158,8 +164,5 @@ namespace klitechHazi.ViewModel
                 // Kezelés az adott visszajelzésnek vagy üzenetnek a felhasználónak, ha nem találtunk karaktereket.
             }
         }
-
-
-
     }
 }
