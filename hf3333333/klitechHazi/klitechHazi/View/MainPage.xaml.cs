@@ -21,16 +21,13 @@ namespace klitechHazi
             DataContext = ViewModel;
         }
 
-        public async void SearchButton_Click(object sender, RoutedEventArgs e)
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             string searchTerm = SearchTextBox.Text.Trim();
-
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                await ViewModel.SaveSearchTermAsync(searchTerm);
-                await ViewModel.PerformSearch(searchTerm);
-            }
+            await ViewModel.PerformSearch(searchTerm);
         }
+
+
 
 
         private async void BooksListButton_Click(object sender, RoutedEventArgs e)
@@ -67,5 +64,8 @@ namespace klitechHazi
             await ViewModel.DisplayDataAsync();
             await ViewModel.InitializeSearchTermAsync();
         }
+
+
+
     }
 }

@@ -1,79 +1,165 @@
 ﻿using klitechHazi.Model;
 using klitechHazi.View;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
+using System.IO;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
+using Windows.Storage;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
-namespace klitechHazi
+namespace klitechHazi.ViewModel
 {
-    public sealed partial class MainPage : Page
+    public class MainPageViewModel
     {
-        private IceAndFireApi _api;
-        private ObservableCollection<Character> _characters;
+        public ObservableCollection<Book> Books { get; set; }
+        public ObservableCollection<Character> Characters { get; set; }
+        public ObservableCollection<House> Houses { get; set; }
+        private bool booksLoaded = false;
+        private bool housesLoaded = false;
+        private bool charactersLoaded = false;
+        private const string SearchTermFileName = "SearchTerm.txt";
+        public string SearchTerm { get; set; }
 
-        public MainPage()
+        private Frame frame;
+
+        public MainPageViewModel(Frame frame)
         {
-            InitializeComponent();
-            _api = new IceAndFireApi();
-            _characters = new ObservableCollection<Character>();
-            CharacterListView.ItemsSource = _characters;
+            Books = new ObservableCollection<Book>();
+            Characters = new ObservableCollection<Character>();
+            Houses = new ObservableCollection<House>();
+            this.frame = frame;
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        public async Task LoadBooksAsync()
         {
-            base.OnNavigatedTo(e);
-
-            // Az előző oldalról átvett karakter nevének lekérése
-            string characterName = e.Parameter as string;
-
-            // Karakter URL-jének lekérése a nevével alapján
-            string characterUrl = await _api.GetCharacterUrlAsync(characterName);
-
-            // Karakter részletek lekérése az URL alapján
-            Character selectedCharacter = await _api.GetCharacterAsync(characterUrl);
-
-            // Karakter hozzáadása a listához
-            _characters.Add(selectedCharacter);
-        }
-
-        private async void CharacterButton_Click(object sender, RoutedEventArgs e)
-        {
-            string searchTerm = SearchTextBox.Text;
-
-            try
+            if (!booksLoaded)
             {
-                // Karakterek lekérése a keresési szöveggel
-                List<string> characterUris = await _api.GetCharactersBySearchAsync(searchTerm);
+                IceAndFireApi api = new IceAndFireApi();
+                ObservableCollection<Book> books = await api.GetBooksAsync();
 
-                // Karakterek részleteinek lekérése az URL-ek alapján
-                foreach (string characterUri in characterUris)
+                if (books != null)
                 {
-                    Character character = await _api.GetCharacterAsync(characterUri);
-                    _characters.Add(character);
+                    Books.Clear();
+                    foreach (var book in books)
+                    {
+                        Books.Add(book);
+                    }
+                    booksLoaded = true;
                 }
             }
-            catch (Exception ex)
+        }
+
+        public async Task LoadHousesAsync()
+        {
+            if (!housesLoaded)
             {
-                Debug.WriteLine($"Hiba a karakterek lekérésekor: {ex.Message}");
+                IceAndFireApi api = new IceAndFireApi();
+                ObservableCollection<House> houses = await api.GetHousesAsync();
+                if (houses != null)
+                {
+                    Houses.Clear();
+                    foreach (var house in houses)
+                    {
+                        Houses.Add(house);
+                    }
+                    housesLoaded = true;
+                }
             }
         }
 
-        private void CharacterListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public async Task LoadCharactersAsync()
         {
-            if (CharacterListView.SelectedItem != null)
+            if (!charactersLoaded)
             {
-                // Kiválasztott karakter részleteinek megjelenítése
-                Character selectedCharacter = CharacterListView.SelectedItem as Character;
-                Frame.Navigate(typeof(CharacterDetailsPage), selectedCharacter);
+                IceAndFireApi api = new IceAndFireApi();
+                ObservableCollection<Character> characters = await api.GetCharactersAsyncCharacter();
+                if (characters != null)
+                {
+                    Characters.Clear();
+                    foreach (var character in characters)
+                    {
+                        Characters.Add(character);
+                    }
+                    charactersLoaded = true;
+                }
             }
         }
+
+        public async Task DisplayDataAsync()
+        {
+            await LoadBooksAsync();
+            await LoadHousesAsync();
+            await LoadCharactersAsync();
+        }
+
+        public async Task<string> LoadSearchTermAsync()
+        {
+            try
+            {
+                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+                StorageFile file = await localFolder.GetFileAsync(SearchTermFileName);
+                return await FileIO.ReadTextAsync(file);
+            }
+            catch (FileNotFoundException)
+            {
+                return string.Empty;
+            }
+        }
+
+        public async Task SaveSearchTermAsync(string searchTerm)
+        {
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            StorageFile file = await localFolder.CreateFileAsync(SearchTermFileName, CreationCollisionOption.ReplaceExisting);
+            await FileIO.WriteTextAsync(file, searchTerm);
+        }
+
+        
+
+        public async Task InitializeSearchTermAsync()
+        {
+            string searchTerm = await GetSavedSearchTermAsync();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                await PerformSearch(searchTerm);
+            }
+        }
+
+        public async Task<string> GetSavedSearchTermAsync()
+        {
+            try
+            {
+                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+                StorageFile file = await localFolder.GetFileAsync(SearchTermFileName);
+                return await FileIO.ReadTextAsync(file);
+            }
+            catch (FileNotFoundException)
+            {
+                return string.Empty;
+            }
+        }
+
+
+        public async Task PerformSearch(string searchTerm)
+        {
+            IceAndFireApi api = new IceAndFireApi();
+            string characterUrl = await api.GetCharacterUrlAsync(searchTerm);
+
+            if (!string.IsNullOrEmpty(characterUrl))
+            {
+                Character selectedCharacter = await api.GetCharacterDetailsAsync(characterUrl);
+                if (frame != null)
+                {
+                    frame.Navigate(typeof(CharacterDetailsPage), selectedCharacter);
+                }
+            }
+            else
+            {
+                // Kezelés az adott visszajelzésnek vagy üzenetnek a felhasználónak, ha nem találtunk karaktereket.
+            }
+        }
+
+
+
     }
 }

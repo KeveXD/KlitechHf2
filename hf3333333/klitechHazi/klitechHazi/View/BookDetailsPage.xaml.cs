@@ -16,14 +16,18 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using klitechHazi.ViewModel;
 
 namespace klitechHazi
 {
     public sealed partial class BookDetailsPage : Page
     {
+        private BooksViewModel viewModel;
+
         public BookDetailsPage()
         {
             this.InitializeComponent();
+            viewModel = new BooksViewModel();
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -33,28 +37,28 @@ namespace klitechHazi
             // Az előző oldalról átvett könyv adatok lekérése
             Book selectedBook = (Book)e.Parameter;
 
+            // ViewModel használata a könyv részletek lekérdezéséhez és megjelenítéséhez
+            await viewModel.LoadBookDetails(selectedBook);
+
             // Könyv részletek megjelenítése a felületen
-            titleLabel.Text = "Címe: " + selectedBook.Name;
-            authorLabel.Text = "Írója: " + string.Join(", ", selectedBook.Authors);
+            titleLabel.Text = "Címe: " + viewModel.Title;
+            authorLabel.Text = "Írója: " + viewModel.Authors;
             // Egyéb könyv részletek megjelenítése itt
 
             // Példa más adatok megjelenítésére:
-            isbnLabel.Text = "ISBN: " + selectedBook.Isbn;
-            pagesLabel.Text = "Oldalszám: " + selectedBook.NumberOfPages.ToString();
-            publisherLabel.Text = "Kiadó: " + selectedBook.Publisher;
-            countryLabel.Text = "Ország: " + selectedBook.Country;
-            mediaTypeLabel.Text = "Média típusa: " + selectedBook.MediaType;
-            releasedLabel.Text = "Megjelenés dátuma: " + selectedBook.Released.ToString();
+            isbnLabel.Text = "ISBN: " + viewModel.Isbn;
+            pagesLabel.Text = "Oldalszám: " + viewModel.NumberOfPages.ToString();
+            publisherLabel.Text = "Kiadó: " + viewModel.Publisher;
+            countryLabel.Text = "Ország: " + viewModel.Country;
+            mediaTypeLabel.Text = "Média típusa: " + viewModel.MediaType;
+            releasedLabel.Text = "Megjelenés dátuma: " + viewModel.Released;
 
             // Karakterek betöltése és megjelenítése
-            IceAndFireApi api = new IceAndFireApi();
-            ObservableCollection<Character> characters = await api.GetCharactersAsyncCharacter();
+            ObservableCollection<Character> characters = await viewModel.LoadCharacters();
 
-            charactersListBox.ItemsSource = characters.Where(c => selectedBook.Characters.Contains(c.Url));
-            povCharactersListBox.ItemsSource = characters.Where(c => selectedBook.PovCharacters.Contains(c.Url));
+            charactersListBox.ItemsSource = characters.Where(c => viewModel.SelectedBook.Characters.Contains(c.Url));
+            povCharactersListBox.ItemsSource = characters.Where(c => viewModel.SelectedBook.PovCharacters.Contains(c.Url));
         }
-
-
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {

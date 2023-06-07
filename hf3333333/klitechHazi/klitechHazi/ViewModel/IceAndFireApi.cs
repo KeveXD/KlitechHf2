@@ -283,24 +283,50 @@ namespace klitechHazi
         }
 
 
+
+
+
         public async Task<string> GetCharacterUrlAsync(string characterName)
         {
-            string url = $"{BaseUrl}characters?name={characterName}";
-            HttpResponseMessage response = await _httpClient.GetAsync(url);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                string json = await response.Content.ReadAsStringAsync();
-                List<Character> characters = JsonConvert.DeserializeObject<List<Character>>(json);
+                string url = $"{BaseUrl}characters?name={characterName}";
+                HttpResponseMessage response = await _httpClient.GetAsync(url);
 
-                if (characters != null && characters.Count > 0)
+                if (response.IsSuccessStatusCode)
                 {
-                    return characters[0].Url;
+                    string json = await response.Content.ReadAsStringAsync();
+                    List<Character> characters = JsonConvert.DeserializeObject<List<Character>>(json);
+
+                    if (characters != null && characters.Count > 0)
+                    {
+                        return characters[0].Url;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Hiba történt a karakter URL lekérdezése során.", ex);
             }
 
             throw new Exception("Karakter nem található.");
         }
+
+
+        public async Task<Character> GetCharacterDetailsAsync(string characterUrl)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync(characterUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                Character character = JsonConvert.DeserializeObject<Character>(json);
+                return character;
+            }
+
+            throw new Exception("Karakter nem található.");
+        }
+
 
     }
 }
