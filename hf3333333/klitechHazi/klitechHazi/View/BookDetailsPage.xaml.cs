@@ -48,7 +48,7 @@ namespace klitechHazi
 
             // Karakterek betöltése és megjelenítése
             IceAndFireApi api = new IceAndFireApi();
-            ObservableCollection<Character> characters = await api.GetCharactersAsyncC();
+            ObservableCollection<Character> characters = await api.GetCharactersAsyncCharacter();
 
             charactersListBox.ItemsSource = characters.Where(c => selectedBook.Characters.Contains(c.Url));
             povCharactersListBox.ItemsSource = characters.Where(c => selectedBook.PovCharacters.Contains(c.Url));

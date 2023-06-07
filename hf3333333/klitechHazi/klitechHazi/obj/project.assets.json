@@ -21639,11 +21639,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Documents\\BME6\\Kliensoldali\\hf3333333\\klitechHazi\\klitechHazi\\klitechHazi.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Documents\\BME6\\Kliensoldali\\KlitechHf2\\hf3333333\\klitechHazi\\klitechHazi\\klitechHazi.csproj",
       "projectName": "klitechHazi",
-      "projectPath": "C:\\Users\\User\\Documents\\BME6\\Kliensoldali\\hf3333333\\klitechHazi\\klitechHazi\\klitechHazi.csproj",
+      "projectPath": "C:\\Users\\User\\Documents\\BME6\\Kliensoldali\\KlitechHf2\\hf3333333\\klitechHazi\\klitechHazi\\klitechHazi.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Documents\\BME6\\Kliensoldali\\hf3333333\\klitechHazi\\klitechHazi\\obj\\",
+      "outputPath": "C:\\Users\\User\\Documents\\BME6\\Kliensoldali\\KlitechHf2\\hf3333333\\klitechHazi\\klitechHazi\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [

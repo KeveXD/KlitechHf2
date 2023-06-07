@@ -10,7 +10,7 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>b5416f0b-f7b6-40a1-9cd8-8c85f9a073bf</PackageIdentityName>
     <PackageIdentityPublisher>CN=User</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\obj\x64\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\obj\x64\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -18,7 +18,7 @@
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\AppX</LayoutDir>
     <RegisteredManifestChecksum>74BC794A8187069AD2E6ECEB7BEE74BC7D413C887AE8E33D20F9825A40FE7E92</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>b5416f0b-f7b6-40a1-9cd8-8c85f9a073bf_1.0.0.0_x64__4sdaedqydyjdm</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>b5416f0b-f7b6-40a1-9cd8-8c85f9a073bf_4sdaedqydyjdm!App</RegisteredUserModeAppID>
@@ -27,16 +27,16 @@
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-05-26T22:38:55.714</Modified>
+      <Modified>2023-06-07T08:31:05.955</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\klitechHazi.exe">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\klitechHazi.exe">
       <PackagePath>entrypoint\klitechHazi.exe</PackagePath>
-      <Modified>2023-05-26T22:38:53.767</Modified>
+      <Modified>2023-06-07T08:31:05.118</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\User\.nuget\packages\microsoft.toolkit\7.1.2\lib\netstandard2.0\Microsoft.Toolkit.dll">
       <PackagePath>Microsoft.Toolkit.dll</PackagePath>
@@ -62,75 +62,75 @@
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
       <Modified>2022-07-15T15:17:36.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
       <Modified>2023-05-23T13:01:57.662</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
       <Modified>2023-05-17T20:21:50.326</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2023-05-17T20:21:50.326</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2023-05-17T20:21:50.326</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2023-05-17T20:21:50.326</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2023-05-17T20:21:50.326</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2023-05-17T20:21:50.326</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2023-05-17T20:21:50.326</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\klitechHazi.xr.xml">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\klitechHazi.xr.xml">
       <PackagePath>klitechHazi.xr.xml</PackagePath>
       <Modified>2023-05-24T18:17:33.795</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2023-05-26T22:38:53.523</Modified>
+      <Modified>2023-06-07T08:31:04.940</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\View\BookDetailsPage.xbf">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\View\BookDetailsPage.xbf">
       <PackagePath>View\BookDetailsPage.xbf</PackagePath>
-      <Modified>2023-05-26T22:38:53.523</Modified>
+      <Modified>2023-06-07T08:31:04.940</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\View\CharacterDetailsPage.xbf">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\View\CharacterDetailsPage.xbf">
       <PackagePath>View\CharacterDetailsPage.xbf</PackagePath>
-      <Modified>2023-05-26T22:38:53.524</Modified>
+      <Modified>2023-06-07T08:31:04.940</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\View\MainPage.xbf">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\View\MainPage.xbf">
       <PackagePath>View\MainPage.xbf</PackagePath>
-      <Modified>2023-05-26T22:38:53.524</Modified>
+      <Modified>2023-06-07T08:31:04.941</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.22000.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
       <Modified>2022-07-15T19:53:28.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <Modified>2023-05-26T21:41:31.151</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\Core\klitechHazi.exe">
+    <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\Core\klitechHazi.exe">
       <PackagePath>klitechHazi.exe</PackagePath>
-      <Modified>2023-05-26T22:38:55.699</Modified>
+      <Modified>2023-06-07T08:31:05.950</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

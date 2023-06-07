@@ -217,7 +217,7 @@ namespace klitechHazi
             throw new Exception("Failed to retrieve houses.");
         }
 
-        public async Task<ObservableCollection<Character>> GetCharactersAsyncC()
+        public async Task<ObservableCollection<Character>> GetCharactersAsyncCharacter()
         {
             string url = $"{BaseUrl}characters?pageSize=50";
             ObservableCollection<Character> characters = new ObservableCollection<Character>();
@@ -275,7 +275,32 @@ namespace klitechHazi
                 return book;
             }
 
+
+
+
+
             return null;
         }
+
+
+        public async Task<string> GetCharacterUrlAsync(string characterName)
+        {
+            string url = $"{BaseUrl}characters?name={characterName}";
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                List<Character> characters = JsonConvert.DeserializeObject<List<Character>>(json);
+
+                if (characters != null && characters.Count > 0)
+                {
+                    return characters[0].Url;
+                }
+            }
+
+            throw new Exception("Karakter nem található.");
+        }
+
     }
 }

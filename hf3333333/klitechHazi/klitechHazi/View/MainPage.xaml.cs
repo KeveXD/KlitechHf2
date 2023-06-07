@@ -17,11 +17,11 @@ namespace klitechHazi
         public MainPage()
         {
             this.InitializeComponent();
-            ViewModel = new MainPageViewModel();
+            ViewModel = new MainPageViewModel(Frame);
             DataContext = ViewModel;
         }
 
-        private async void SearchButton_Click(object sender, RoutedEventArgs e)
+        public async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             string searchTerm = SearchTextBox.Text.Trim();
 
@@ -31,6 +31,7 @@ namespace klitechHazi
                 await ViewModel.PerformSearch(searchTerm);
             }
         }
+
 
         private async void BooksListButton_Click(object sender, RoutedEventArgs e)
         {

@@ -1,200 +1,79 @@
 ﻿using klitechHazi.Model;
+using klitechHazi.View;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
+using System.Diagnostics;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
-using Windows.Storage;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
-namespace klitechHazi.ViewModel
+namespace klitechHazi
 {
-    public class MainPageViewModel
+    public sealed partial class MainPage : Page
     {
-        public ObservableCollection<Book> Books { get; set; }
-        public ObservableCollection<Character> Characters { get; set; }
-        public ObservableCollection<House> Houses { get; set; }
-        private bool booksLoaded = false;
-        private bool housesLoaded = false;
-        private bool charactersLoaded = false;
-        private const string SearchTermFileName = "SearchTerm.txt";
+        private IceAndFireApi _api;
+        private ObservableCollection<Character> _characters;
 
-        public MainPageViewModel()
+        public MainPage()
         {
-            Books = new ObservableCollection<Book>();
-            Characters = new ObservableCollection<Character>();
-            Houses = new ObservableCollection<House>();
+            InitializeComponent();
+            _api = new IceAndFireApi();
+            _characters = new ObservableCollection<Character>();
+            CharacterListView.ItemsSource = _characters;
         }
 
-        public async Task LoadBooksAsync()
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (!booksLoaded)
-            {
-                IceAndFireApi api = new IceAndFireApi();
-                ObservableCollection<Book> books = await api.GetBooksAsync();
+            base.OnNavigatedTo(e);
 
-                if (books != null)
-                {
-                    Books.Clear();
-                    foreach (var book in books)
-                    {
-                        Books.Add(book);
-                    }
-                    booksLoaded = true;
-                }
-            }
+            // Az előző oldalról átvett karakter nevének lekérése
+            string characterName = e.Parameter as string;
+
+            // Karakter URL-jének lekérése a nevével alapján
+            string characterUrl = await _api.GetCharacterUrlAsync(characterName);
+
+            // Karakter részletek lekérése az URL alapján
+            Character selectedCharacter = await _api.GetCharacterAsync(characterUrl);
+
+            // Karakter hozzáadása a listához
+            _characters.Add(selectedCharacter);
         }
 
-        public async Task LoadHousesAsync()
+        private async void CharacterButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!housesLoaded)
-            {
-                IceAndFireApi api = new IceAndFireApi();
-                ObservableCollection<House> houses = await api.GetHousesAsync();
-                if (houses != null)
-                {
-                    Houses.Clear();
-                    foreach (var house in houses)
-                    {
-                        Houses.Add(house);
-                    }
-                    housesLoaded = true;
-                }
-            }
-        }
+            string searchTerm = SearchTextBox.Text;
 
-        public async Task LoadCharactersAsync()
-        {
-            if (!charactersLoaded)
-            {
-                IceAndFireApi api = new IceAndFireApi();
-                ObservableCollection<Character> characters = await api.GetCharactersAsyncC();
-                if (characters != null)
-                {
-                    Characters.Clear();
-                    foreach (var character in characters)
-                    {
-                        Characters.Add(character);
-                    }
-                    charactersLoaded = true;
-                }
-            }
-        }
-
-        public async Task DisplayDataAsync()
-        {
-            await LoadBooksAsync();
-            await LoadHousesAsync();
-            await LoadCharactersAsync();
-        }
-
-        public void BookButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            Button detailsButton = (Button)sender;
-            Book selectedBook = (Book)detailsButton.DataContext;
-            // Frame.Navigate(typeof(BookDetailsPage), selectedBook);
-        }
-
-        public void CharacterButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            Button characterButton = (Button)sender;
-            Character selectedCharacter = (Character)characterButton.DataContext;
-            // Frame.Navigate(typeof(CharacterDetailsPage), selectedCharacter.Url);
-        }
-
-        public async Task<string> LoadSearchTermAsync()
-        {
             try
             {
-                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-                StorageFile file = await localFolder.GetFileAsync(SearchTermFileName);
-                return await FileIO.ReadTextAsync(file);
+                // Karakterek lekérése a keresési szöveggel
+                List<string> characterUris = await _api.GetCharactersBySearchAsync(searchTerm);
+
+                // Karakterek részleteinek lekérése az URL-ek alapján
+                foreach (string characterUri in characterUris)
+                {
+                    Character character = await _api.GetCharacterAsync(characterUri);
+                    _characters.Add(character);
+                }
             }
-            catch (FileNotFoundException)
+            catch (Exception ex)
             {
-                return string.Empty;
+                Debug.WriteLine($"Hiba a karakterek lekérésekor: {ex.Message}");
             }
         }
 
-        public async Task SaveSearchTermAsync(string searchTerm)
+        private void CharacterListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            StorageFile file = await localFolder.CreateFileAsync(SearchTermFileName, CreationCollisionOption.ReplaceExisting);
-            await FileIO.WriteTextAsync(file, searchTerm);
-        }
-
-        public async Task<string> GetSavedSearchTermAsync()
-        {
-            string searchTerm = await LoadSearchTermAsync();
-            if (!string.IsNullOrEmpty(searchTerm))
+            if (CharacterListView.SelectedItem != null)
             {
-                // SearchTextBox.Text = searchTerm;
+                // Kiválasztott karakter részleteinek megjelenítése
+                Character selectedCharacter = CharacterListView.SelectedItem as Character;
+                Frame.Navigate(typeof(CharacterDetailsPage), selectedCharacter);
             }
-            return searchTerm;
-        }
-
-        public async Task InitializeSearchTermAsync()
-        {
-            string searchTerm = await GetSavedSearchTermAsync();
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                await PerformSearch(searchTerm);
-            }
-        }
-
-        public async Task PerformSearch(string searchTerm)
-        {
-            IceAndFireApi api = new IceAndFireApi();
-            // List<string> characters = await api.GetCharactersBySearchAsync(searchTerm);
-
-            // if (characters != null && characters.Count > 0)
-            // {
-            //     string selectedCharacter = characters[0];
-            //     // Frame.Navigate(typeof(CharacterDetailsPage), selectedCharacter);
-            // }
-            // else
-            // {
-            //     // Kezelés az adott visszajelzésnek vagy üzenetnek a felhasználónak, ha nem találtunk karaktereket.
-            // }
-        }
-
-        public async void SearchButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            // string searchTerm = SearchTextBox.Text.Trim();
-
-            // if (!string.IsNullOrEmpty(searchTerm))
-            // {
-            //     await SaveSearchTermAsync(searchTerm);
-            //     await PerformSearch(searchTerm);
-            // }
-        }
-
-        public void UpdateButtons()
-        {
-            // foreach (Button button in CharactersItemsControl.ItemsPanelRoot.Children)
-            // {
-            //     button.Content = "Karakterek";
-            // }
-        }
-
-        public async void BooksListButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            await LoadBooksAsync();
-        }
-
-        public async void HousesListButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            await LoadHousesAsync();
-        }
-
-        public async void CharactersListButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            await LoadCharactersAsync();
-        }
-
-        public async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            await DisplayDataAsync();
-            await InitializeSearchTermAsync();
         }
     }
 }

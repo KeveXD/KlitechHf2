@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nvWHLZAkX/iU77hKKAwWaRFX/wHHt230PHA6UzPRoytrqQo5IUyvDfadReEBg9vaffKj4iwO1D+IgF47J2zEfA==",
+  "dgSpecHash": "CXR2hvbDh7HUKJDNysiDEp3lyVQFzAO8Dcdw+ZiPYBmGZ0HOzLHYMQ6a7S8kmxh5lPdphSPNhwx+BWKkbs7kww==",
   "success": true,
-  "projectFilePath": "C:\\Users\\User\\Documents\\BME6\\Kliensoldali\\hf3333333\\klitechHazi\\klitechHazi\\klitechHazi.csproj",
+  "projectFilePath": "C:\\Users\\User\\Documents\\BME6\\Kliensoldali\\KlitechHf2\\hf3333333\\klitechHazi\\klitechHazi\\klitechHazi.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\microsoft.net.native.compiler\\2.2.12-rel-31116-00\\microsoft.net.native.compiler.2.2.12-rel-31116-00.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\microsoft.net.uwpcoreruntimesdk\\2.2.14\\microsoft.net.uwpcoreruntimesdk.2.2.14.nupkg.sha512",
