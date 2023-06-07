@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-06-07T10:08:58.763</Modified>
+      <Modified>2023-06-07T10:20:56.449</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\klitechHazi.exe">
       <PackagePath>entrypoint\klitechHazi.exe</PackagePath>
-      <Modified>2023-06-07T10:08:57.764</Modified>
+      <Modified>2023-06-07T10:20:55.329</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\User\.nuget\packages\microsoft.toolkit\7.1.2\lib\netstandard2.0\Microsoft.Toolkit.dll">
       <PackagePath>Microsoft.Toolkit.dll</PackagePath>
@@ -106,19 +106,19 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2023-06-07T10:08:57.580</Modified>
+      <Modified>2023-06-07T10:20:55.138</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\View\BookDetailsPage.xbf">
       <PackagePath>View\BookDetailsPage.xbf</PackagePath>
-      <Modified>2023-06-07T10:08:57.580</Modified>
+      <Modified>2023-06-07T10:20:55.138</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\View\CharacterDetailsPage.xbf">
       <PackagePath>View\CharacterDetailsPage.xbf</PackagePath>
-      <Modified>2023-06-07T10:08:57.581</Modified>
+      <Modified>2023-06-07T10:20:55.139</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\View\MainPage.xbf">
       <PackagePath>View\MainPage.xbf</PackagePath>
-      <Modified>2023-06-07T10:08:57.582</Modified>
+      <Modified>2023-06-07T10:20:55.139</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.22000.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -130,7 +130,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\User\Documents\BME6\Kliensoldali\KlitechHf2\hf3333333\klitechHazi\klitechHazi\bin\x64\Debug\Core\klitechHazi.exe">
       <PackagePath>klitechHazi.exe</PackagePath>
-      <Modified>2023-06-07T10:08:58.758</Modified>
+      <Modified>2023-06-07T10:20:56.433</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

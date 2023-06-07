@@ -50,7 +50,7 @@ namespace klitechHazi
 
             throw new Exception("Karakter nem található."); // Kivétel dobása, ha nem található karakter
         }
-
+        //Ezt hasznalom mindenhol mashol ahol nev alapjan megyek tovabb a detailesView-ra
         public async Task<Character> GetCharacterAsync(string characterName)
         {
             string url = characterName; // Az adott karakter URL-je

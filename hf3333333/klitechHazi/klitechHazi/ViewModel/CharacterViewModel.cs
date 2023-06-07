@@ -1,4 +1,5 @@
 ﻿using klitechHazi.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -100,7 +101,28 @@ namespace klitechHazi.ViewModel
         public async Task LoadCharacterDetails(string characterName)
         {
             api = new IceAndFireApi();
-            SelectedCharacter = await api.GetCharacterAsync(characterName);
+            try
+            {
+                SelectedCharacter = await api.GetCharacterAsync2(characterName);
+            }
+            catch (Exception ex)
+            {
+                // A GetCharacterAsync2 dobott kivétel, próbáljuk meg a GetCharacterAsync-t használni
+                try
+                {
+                    SelectedCharacter = await api.GetCharacterAsync(characterName);
+                }
+                catch (Exception innerEx)
+                {
+                    // Mindkét függvény dobott kivételt, kezeljük a hibát itt
+                    // Itt a két kivétel objektum (ex és innerEx) rendelkezésre áll, amelyeket
+                    // az alkalmazásban megfelelően kezelhetsz vagy jelenthetsz.
+                    // Például:
+                    Console.WriteLine($"Hiba történt a karakter betöltése közben: {ex.Message}");
+                    Console.WriteLine($"Hiba részletei: {ex.StackTrace}");
+                    return;
+                }
+            }
 
             if (SelectedCharacter != null)
             {
@@ -108,6 +130,7 @@ namespace klitechHazi.ViewModel
                 Aliases = SelectedCharacter.Aliases;
             }
         }
+
 
         /// <summary>
         /// A karakterek neveinek lekérése a megadott URL-ek alapján.
