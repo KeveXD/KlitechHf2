@@ -4,6 +4,7 @@ using klitechHazi.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -23,9 +24,36 @@ namespace klitechHazi
 
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            string searchTerm = SearchTextBox.Text.Trim();
-            await ViewModel.PerformSearch(searchTerm);
+            string searchTerm = SearchTextBox.Text;
+
+            try
+            {
+                IceAndFireApi api = new IceAndFireApi();
+                string characterUrl = await api.GetCharacterUrlAsync(searchTerm);
+
+                if (!string.IsNullOrEmpty(characterUrl))
+                {
+                    Character selectedCharacter = await api.GetCharacterDetailsAsync(characterUrl);
+
+                    Frame frame = Window.Current.Content as Frame;
+                    if (frame != null)
+                    {
+                        frame.Navigate(typeof(CharacterDetailsPage), selectedCharacter);
+                    }
+                }
+                else
+                {
+                    // Ha nem található karakter, kezeljük az adott visszajelzést vagy üzenetet a felhasználónak.
+                }
+            }
+            catch (Exception ex)
+            {
+                // Kezelés az adott hibaüzenetnek a felhasználónak.
+                Debug.WriteLine($"Hiba történt a keresés során: {ex.Message}");
+            }
         }
+
+
 
 
 

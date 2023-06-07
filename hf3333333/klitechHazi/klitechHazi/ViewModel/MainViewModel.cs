@@ -146,10 +146,10 @@ namespace klitechHazi.ViewModel
         }
 
         // Keresés végrehajtása aszinkron módon
-        public async Task PerformSearch(string searchTerm)
+        public async Task PerformSearch(string caracteName)
         {
             IceAndFireApi api = new IceAndFireApi();
-            string characterUrl = await api.GetCharacterUrlAsync(searchTerm);
+            string characterUrl = await api.GetCharacterUrlAsync(caracteName);
 
             if (!string.IsNullOrEmpty(characterUrl))
             {

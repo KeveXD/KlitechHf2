@@ -30,25 +30,28 @@ namespace klitechHazi
             return null;
         }
 
+        //Keresesnel vegul ezt hasznalom
         public async Task<Character> GetCharacterAsync(string characterName)
         {
-            string url = characterName; // Az adott karakter URL-je
+            string url = $"{BaseUrl}characters?name={characterName}"; // Az adott karakter URL-je
 
             HttpResponseMessage response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
-                Character character = JsonConvert.DeserializeObject<Character>(json);
+                List<Character> characters = JsonConvert.DeserializeObject<List<Character>>(json);
 
-                if (character != null)
+                if (characters != null && characters.Count > 0)
                 {
-                    return character;
+                    return characters[0];
                 }
             }
 
             throw new Exception("Karakter nem található."); // Kivétel dobása, ha nem található karakter
         }
+
+
 
 
         public async Task<List<string>> GetCharactersBySearchAsync(string searchTerm)
