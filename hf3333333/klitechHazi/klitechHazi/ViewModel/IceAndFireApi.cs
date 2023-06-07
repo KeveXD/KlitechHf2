@@ -95,6 +95,7 @@ namespace klitechHazi
             throw new Exception("Nem sikerült lekérni a karaktereket.");
         }
 
+        //lapozashoz kell, mert egyszerre csak 10 karaktert ker le egy oldalon
         private string GetNextPageUrlFromLinkHeaders(IEnumerable<string> linkHeaders)
         {
             foreach (string linkHeader in linkHeaders)
@@ -164,6 +165,7 @@ namespace klitechHazi
         }
 
 
+        //a Hazak api lekereset valositja meg
         public async Task<ObservableCollection<House>> GetHousesAsync()
         {
             string url = $"{BaseUrl}houses?pageSize=50";
@@ -217,6 +219,7 @@ namespace klitechHazi
             throw new Exception("Failed to retrieve houses.");
         }
 
+        //Itt egy karaktert van az ObservableCollection-ben a visszateresnel
         public async Task<ObservableCollection<Character>> GetCharactersAsyncCharacter()
         {
             string url = $"{BaseUrl}characters?pageSize=50";
@@ -263,7 +266,7 @@ namespace klitechHazi
 
 
 
-
+        //a konyvek api kereseit valositja meg
         public async Task<Book> GetBookAsync(string bookUrl)
         {
             HttpResponseMessage response = await _httpClient.GetAsync(bookUrl);
@@ -285,7 +288,7 @@ namespace klitechHazi
 
 
 
-
+        //a karakterek url-jet keri le az api-rol
         public async Task<string> GetCharacterUrlAsync(string characterName)
         {
             try

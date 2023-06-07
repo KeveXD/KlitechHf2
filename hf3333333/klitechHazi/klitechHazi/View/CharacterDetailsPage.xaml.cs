@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using klitechHazi.Model;
 using System.Threading.Tasks;
+using klitechHazi.ViewModel;
 
 namespace klitechHazi.View
 {
@@ -22,11 +23,12 @@ namespace klitechHazi.View
     /// </summary>
     public sealed partial class CharacterDetailsPage : Page
     {
-        private IceAndFireApi _api = new IceAndFireApi();
+        private CharacterViewModel viewModel;
 
         public CharacterDetailsPage()
         {
             this.InitializeComponent();
+            viewModel = new CharacterViewModel();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -36,67 +38,35 @@ namespace klitechHazi.View
             // Az előző oldalról átvett karakter nevének lekérése
             string characterName = e.Parameter as string;
 
-            // Karakter részletek lekérése a nevével alapján
-            Character selectedCharacter = await _api.GetCharacterAsync(characterName);
+            // ViewModel használata a karakter részletek lekérdezéséhez és megjelenítéséhez
+            await viewModel.LoadCharacterDetails(characterName);
 
             // Ha a karakter található, beállítjuk DataContext-nek
-            if (selectedCharacter != null)
+            if (viewModel.SelectedCharacter != null)
             {
-                DataContext = selectedCharacter;
+                DataContext = viewModel.SelectedCharacter;
 
                 // Címek ListBox feltöltése
-                titlesListBox.ItemsSource = selectedCharacter.Titles;
+                titlesListBox.ItemsSource = viewModel.Titles;
 
                 // Aliasok ListBox feltöltése
-                aliasesListBox.ItemsSource = selectedCharacter.Aliases;
+                aliasesListBox.ItemsSource = viewModel.Aliases;
 
                 // Hűbérúri kötelezettségek ListBox feltöltése
-                allegiancesListBox.ItemsSource = await GetCharacterNames(selectedCharacter.Allegiances);
+                allegiancesListBox.ItemsSource = await viewModel.GetCharacterNames(viewModel.SelectedCharacter.Allegiances);
 
                 // Könyvek ListBox feltöltése
-                booksListBox.ItemsSource = await GetBookNames(selectedCharacter.Books);
+                booksListBox.ItemsSource = await viewModel.GetBookNames(viewModel.SelectedCharacter.Books);
 
                 // POV könyvek ListBox feltöltése
-                povBooksListBox.ItemsSource = await GetBookNames(selectedCharacter.PovBooks);
+                povBooksListBox.ItemsSource = await viewModel.GetBookNames(viewModel.SelectedCharacter.PovBooks);
 
                 // TV sorozatok ListBox feltöltése
-                tvSeriesListBox.ItemsSource = selectedCharacter.TvSeries;
+                tvSeriesListBox.ItemsSource = viewModel.TvSeries;
 
                 // Eljátszotta ListBox feltöltése
-                playedByListBox.ItemsSource = selectedCharacter.PlayedBy;
+                playedByListBox.ItemsSource = viewModel.PlayedBy;
             }
-        }
-
-        private async Task<List<string>> GetCharacterNames(List<string> characterUrls)
-        {
-            List<string> characterNames = new List<string>();
-
-            foreach (string url in characterUrls)
-            {
-                Character character = await _api.GetCharacterAsync(url);
-                if (character != null)
-                {
-                    characterNames.Add(character.Name);
-                }
-            }
-
-            return characterNames;
-        }
-
-        private async Task<List<string>> GetBookNames(List<string> bookUrls)
-        {
-            List<string> bookNames = new List<string>();
-
-            foreach (string url in bookUrls)
-            {
-                Book book = await _api.GetBookAsync(url);
-                if (book != null)
-                {
-                    bookNames.Add(book.Name);
-                }
-            }
-
-            return bookNames;
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
